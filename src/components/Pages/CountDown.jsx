@@ -29,11 +29,11 @@ console.log("Diff:", diff);
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl">
+    <div className="grid grid-cols-4 gap-2 sm:gap-4 w-full max-w-2xl">
       {items.map((it) => (
         <div
-          key={it.l}
-          className="rounded-xl border border-[var(--gold)]/40 bg-white/5 backdrop-blur-xl px-3 py-4 sm:py-6 text-center"
+          key={it.desktop}
+          className="w-full rounded-xl border border-[var(--gold)]/40 bg-white/5 backdrop-blur-xl px-3 py-4 sm:py-6 text-center"
         >
           <div className="text-3xl sm:text-5xl font-light text-[var(--gold)] font-display">
             {String(it.v).padStart(2, "0")}
