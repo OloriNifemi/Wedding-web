@@ -31,8 +31,8 @@ const IMAGES = [
   },
   {
     src: Img3,
-    position: "center center",
-    tall: true,
+    position: "center",
+    tall: false,
   },
   {
     src: Img15,
@@ -46,7 +46,7 @@ const IMAGES = [
   },
   {
     src: Img12,
-    position: "center bottom",
+    position: " center 70% ",
     tall: true,
   },
   {
@@ -77,7 +77,7 @@ const IMAGES = [
   {
     src: Img10,
     position: "top center",
-    tall: false,
+    tall: true,
   },
   {
     src: Img16,
@@ -91,8 +91,8 @@ export default function Gallery() {
   return (
     <section id="gallery" className="py-24 md:py-32 px-6 md:px-10 max-w-7xl mx-auto">
       <div className="text-center mb-16"><Eyebrow>Moments</Eyebrow><SectionTitle>Through Our Lens</SectionTitle></div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[220px] md:auto-rows-[280px]">
-        {IMAGES.map((image, i) => (
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 auto-rows-[170px] sm:auto-rows-[210px] md:auto-rows-[300px]">
+          {IMAGES.map((image, i) => (
           <button
             key={i}
             onClick={() => setOpen(i)}
@@ -126,11 +126,11 @@ export default function Gallery() {
         </button>          
         <button className="absolute left-4 text-white text-4xl" onClick={(e) => { e.stopPropagation(); setOpen((open + IMAGES.length - 1) % IMAGES.length); }}>‹</button>
           <img
-            src={IMAGES[open]}
+            src={IMAGES[open].src}
             alt="Gallery image"
             className="max-h-[85vh] max-w-[90vw] object-contain rounded-lg"
             onClick={(e) => e.stopPropagation()}
-            />
+          />
           <button className="absolute right-4 text-white text-4xl" onClick={(e) => { e.stopPropagation(); setOpen((open + 1) % IMAGES.length); }}>›</button>
         </div>
       )}
