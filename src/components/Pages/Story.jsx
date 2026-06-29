@@ -1,0 +1,42 @@
+import { Eyebrow, SectionTitle } from "../Ui/Ui";
+
+const STORY = [
+  { date: "May 2021", title: "Where it began", text: "A friend's birthday in Lekki. One quiet hello that neither of us expected to last.", img: "/story1.jpg" },
+  { date: "Dec 2022", title: "The first trip", text: "Cape Town. Sunsets, mountains, and the realisation — this is it.", img: "/story2.jpg" },
+  { date: "Aug 2024", title: "Home", text: "We signed for our first apartment. We've been building it ever since.", img: "/story3.jpg" },
+  { date: "Jun 2025", title: "The proposal", text: "Under a string of warm lights, on the rooftop where we had our first date.", img: "/story4.jpg" },
+];
+
+export default function Story() {
+  return (
+    <section id="story" className="py-24 md:py-32 px-6 md:px-10 max-w-6xl mx-auto">
+      <div className="text-center mb-16 md:mb-24">
+        <Eyebrow>Our Journey</Eyebrow>
+        <SectionTitle>Our Love Story</SectionTitle>
+      </div>
+      <div className="relative">
+        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--gold)]/50 to-transparent" />
+        <div className="space-y-16 md:space-y-24">
+          {STORY.map((s, i) => {
+            const left = i % 2 === 0;
+            return (
+              <div key={i} className="relative grid md:grid-cols-2 gap-8 items-center">
+                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[var(--gold)] ring-4 ring-[var(--ivory)]" />
+                <div className={`pl-12 md:pl-0 ${left ? "md:pr-16 md:text-right" : "md:order-2 md:pl-16"}`}>
+                  <p className="text-xs tracking-[0.35em] uppercase text-[var(--gold-deep)] mb-3">{s.date}</p>
+                  <h3 className="text-3xl md:text-4xl font-light mb-4 font-display">{s.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{s.text}</p>
+                </div>
+                <div className={`pl-12 md:pl-0 ${left ? "md:order-2 md:pl-16" : "md:pr-16"}`}>
+                  <div className="aspect-[4/5] overflow-hidden rounded-2xl shadow-[var(--shadow-luxe)]">
+                    <img src={s.img} alt={s.title} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

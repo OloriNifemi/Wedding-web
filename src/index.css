@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Allura&family=Inter:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #D4AF37;
+  --gold-deep: #A37E2C;
+  --gold-soft: #F5E6A8;
+  --ink: #0E0E10;
+  --ivory: #FBF8F1;
+  --gradient-gold: linear-gradient(135deg, #F5E6A8, #D4AF37, #A37E2C);
+  --shadow-luxe: 0 30px 80px -20px rgba(14,14,16,0.35);
+  --font-display: "Cormorant Garamond", serif;
+  --font-script: "Allura", cursive;
+  --font-sans: "Inter", sans-serif;
+}
+
+body { background: var(--ivory); color: var(--ink); font-family: var(--font-sans); }
+.font-display { font-family: var(--font-display); }
+.font-script  { font-family: var(--font-script);  }
