@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Eyebrow, SectionTitle } from "../Ui/Ui";
+import Image from "../../assets/MuyiwaEtDebbyImg8.jpeg"
 
 export default function RSVP() {
   const [sent, setSent] = useState(false);
@@ -22,8 +23,16 @@ export default function RSVP() {
   };
   const field = "w-full bg-transparent border-b border-[var(--gold)]/40 focus:border-[var(--gold)] py-3 outline-none";
   return (
-    <section id="rsvp" className="py-24 md:py-32 px-6 md:px-10 bg-[var(--ivory)]">
-      <div className="max-w-3xl mx-auto">
+      <section
+        id="rsvp"
+        className="py-24 md:py-32 px-6 md:px-10 bg-[var(--ivory)]"
+        style={{
+          backgroundImage: `url(${Image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center"
+        }}
+      > 
+     <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12"><Eyebrow>Kindly Reply</Eyebrow><SectionTitle>RSVP</SectionTitle></div>
         {sent ? (
           <div className="rounded-2xl border border-[var(--gold)]/40 bg-white p-12 text-center shadow-[var(--shadow-luxe)]">
@@ -32,7 +41,7 @@ export default function RSVP() {
             <p className="text-gray-600">Your RSVP has been received. See you on 14 February 2026.</p>
           </div>
         ) : (
-          <form onSubmit={submit} className="rounded-2xl border border-[var(--gold)]/30 bg-white p-12 shadow-[var(--shadow-luxe)] space-y-6">
+          <form onSubmit={submit} className="rounded-2xl border border-[var(--gold)]/30 bg-white/65 p-12 shadow-[var(--shadow-luxe)] space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <input className={field} placeholder="Full Name *" required value={form.name} onChange={(e) => update("name", e.target.value)} />
               <input className={field} placeholder="Email *" type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} />

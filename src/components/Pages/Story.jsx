@@ -1,10 +1,10 @@
 import { Eyebrow, SectionTitle } from "../Ui/Ui";
 
 const STORY = [
-  { date: "May 2021", title: "Where it began", text: "A friend's birthday in Lekki. One quiet hello that neither of us expected to last.", img: "/story1.jpg" },
-  { date: "Dec 2022", title: "The first trip", text: "Cape Town. Sunsets, mountains, and the realisation — this is it.", img: "/story2.jpg" },
-  { date: "Aug 2024", title: "Home", text: "We signed for our first apartment. We've been building it ever since.", img: "/story3.jpg" },
-  { date: "Jun 2025", title: "The proposal", text: "Under a string of warm lights, on the rooftop where we had our first date.", img: "/story4.jpg" },
+  { date: "May 2021", title: "Where it began", text: "A friend's birthday in Lekki. One quiet hello that neither of us expected to last.", img: "../src/assets/MuyiwaEtDebbyImg13.jpeg" },
+  { date: "Dec 2022", title: "The first trip", text: "Cape Town. Sunsets, mountains, and the realisation — this is it.", img: "../src/assets/MuyiwaEtDebbyImg6.jpeg" },
+  { date: "Aug 2024", title: "Home", text: "We signed for our first apartment. We've been building it ever since.", img: "../src/assets/MuyiwaEtDebbyImg10.jpeg" },
+  { date: "Jun 2025", title: "The proposal", text: "Under a string of warm lights, on the rooftop where we had our first date.", img: "../src/assets/MuyiwaEtDebbyImg11.jpeg" },
 ];
 
 export default function Story() {
