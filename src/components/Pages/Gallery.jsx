@@ -1,69 +1,86 @@
 import { useState } from "react"; 
 import { Eyebrow, SectionTitle } from "../Ui/Ui";
+import Img1 from "../../assets/MuyiwaEtDebbyImg1.jpeg";
+import Img2 from "../../assets/MuyiwaEtDebbyImg2.jpeg";
+import Img3 from "../../assets/MuyiwaEtDebbyImg3.jpeg";
+import Img4 from "../../assets/MuyiwaEtDebbyImg4.jpeg";
+import Img7 from "../../assets/MuyiwaEtDebbyImg7.jpeg";
+import Img8 from "../../assets/MuyiwaEtDebbyImg8.jpeg";
+import Img9 from "../../assets/MuyiwaEtDebbyImg9.jpeg";
+import Img10 from "../../assets/MuyiwaEtDebbyImg10.jpeg";
+import Img11 from "../../assets/MuyiwaEtDebbyImg11.jpeg";
+import Img12 from "../../assets/MuyiwaEtDebbyImg12.jpeg";
+import Img13 from "../../assets/MuyiwaEtDebbyImg13.jpeg";
+import Img15 from "../../assets/MuyiwaEtDebbyImg15.jpeg";
+import Img16 from "../../assets/MuyiwaEtDebbyImg16.jpeg";
+
+
+
+
 
 const IMAGES = [
   {
-    src: "../src/assets/MuyiwaEtDebbyImg1.jpeg",
+    src: Img1,
     position: "center 25%",
     tall: true,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg13.jpeg",
+    src: Img13,
     position: "center top",
     tall: false,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg3.jpeg",
+    src: Img3,
     position: "center center",
     tall: true,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg15.jpeg",
+    src: Img15,
     position: "center 35%",
     tall: true,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg8.jpeg",
+    src: Img8,
     position: "center center",
     tall: true,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg12.jpeg",
+    src: Img12,
     position: "center bottom",
     tall: true,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg4.jpeg",
+    src: Img4,
     position: "top center ",
     tall: false,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg9.jpeg",
+    src: Img9,
     position: "center center",
     tall: false,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg2.jpeg",
+    src: Img2,
     position: "center 20%",
     tall: true,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg11.jpeg",
+    src: Img11,
     position: "center top",
     tall: false,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg7.jpeg",
+    src: Img7,
     position: "center center",
     tall: true,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg10.jpeg",
+    src: Img10,
     position: "top center",
     tall: false,
   },
   {
-    src: "../src/assets/MuyiwaEtDebbyImg16.jpeg",
+    src: Img16,
     position: "center 25%",
     tall: false,
   },
