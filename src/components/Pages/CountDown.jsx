@@ -22,10 +22,10 @@ console.log("Diff:", diff);
   const s = Math.floor((diff % 60000) / 1000);
 
   const items = [
-    { l: "Days", v: d },
-    { l: "Hours", v: h },
-    { l: "Minutes", v: m },
-    { l: "Seconds", v: s },
+    { desktop: "Days", mobile: "Days", v: d },
+    { desktop: "Hours", mobile: "Hrs", v: h },
+    { desktop: "Minutes", mobile: "Min", v: m },
+    { desktop: "Seconds", mobile: "Sec", v: s },
   ];
 
   return (
@@ -39,9 +39,10 @@ console.log("Diff:", diff);
             {String(it.v).padStart(2, "0")}
           </div>
 
-          <div className="mt-1 text-[10px] sm:text-xs tracking-[0.3em] uppercase text-white/70">
-            {it.l}
-          </div>
+        <div className="mt-1 text-[10px] sm:text-xs tracking-[0.15em] sm:tracking-[0.3em] uppercase text-white/70">
+          <span className="sm:hidden">{it.mobile}</span>
+          <span className="hidden sm:inline">{it.desktop}</span>
+        </div>
         </div>
       ))}
     </div>
