@@ -3,12 +3,18 @@ import { useState } from "react";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const handleNavClick = () => {
+  setTimeout(() => {
+    setOpen(false);
+  }, 250);
+  };
+
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-black/5 border-b border-stone-200/20">
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
 
         <a href="#top" className="text-2xl text-[var(--gold-deep)] font-script">
-          M &amp; D
+          A &amp; O
         </a>
 
         {/* Desktop */}
@@ -32,28 +38,28 @@ export default function Navbar() {
           ☰
         </button>
 
-        {/* Mobile menu */}
+        {/* Backdrop */}
         <div
-className={`absolute top-full left-0 w-full
-bg-black/65
-backdrop-blur-3xl
-backdrop-saturate-150
-border-t border-white/10
-shadow-2xl
-flex flex-col items-center gap-6 py-8 md:hidden
-transition-all duration-500 ease-out
-${
-  open
-    ? "opacity-100 translate-y-0"
-    : "opacity-0 -translate-y-3 pointer-events-none"
-}`}
+          onClick={() => setOpen(false)}
+          className={`fixed inset-0 bg-black/50 backdrop-blur-md md:hidden transition-all duration-700 ease-out ${
+            open
+              ? "opacity-100 visible"
+              : "opacity-0 invisible"
+          }`}
+        />
+
+        {/* Mobile Menu */}
+        <div
+          className={`fixed top-0 right-0 h-screen w-72 bg-black/90 backdrop-blur-3xl border-l border-white/10 shadow-2xl flex flex-col justify-center items-center gap-10 md:hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            open ? "translate-x-0" : "translate-x-full"
+          }`}
         >
           {["Story", "Details", "Gallery", "Registry", "RSVP"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
-              onClick={() => setOpen(false)}
-              className="relative text-[11px] tracking-[0.3em] uppercase text-[var(--ink)] transition-all duration-300 ease-out hover:text-[var(--gold-deep)] hover:-translate-y-0.5 after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-[var(--gold-deep)] after:transition-all after:duration-300 hover:after:w-full"
+              onClick={handleNavClick}
+              className="relative text-sm tracking-[0.35em] uppercase text-white transition-all duration-500 hover:text-[var(--gold)] hover:tracking-[0.45em] after:absolute after:left-0 after:-bottom-2 after:h-px after:w-0 after:bg-[var(--gold)] after:transition-all after:duration-500 hover:after:w-full"
             >
               {l}
             </a>
