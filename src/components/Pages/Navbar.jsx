@@ -19,7 +19,7 @@ export default function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex gap-7 text-[11px] tracking-[0.3em] uppercase">
-          {["Story", "Details", "Gallery", "Registry", "RSVP"].map((l) => (
+          {["Hero", "Story", "Details", "Gallery", "Registry", "RSVP"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
@@ -50,11 +50,11 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`fixed top-0 right-0 h-screen w-72 bg-black/90 backdrop-blur-3xl border-l border-white/10 shadow-2xl flex flex-col justify-center items-center gap-10 md:hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`fixed top-0 right-0 h-screen w-72 bg-black/90 backdrop-blur-3xl border-l border-white/10 shadow-2xl flex flex-col justify-center items-end px-10 gap-10 md:hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          {["Story", "Details", "Gallery", "Registry", "RSVP"].map((l) => (
+          {[ "Hero", "Story", "Details", "Gallery", "Registry", "RSVP"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
