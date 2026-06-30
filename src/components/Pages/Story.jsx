@@ -30,7 +30,7 @@ const fadeUp = {
 const slideLeft = {
   hidden: {
     opacity: 0,
-    x: -60,
+    x: -30,
   },
   show: {
     opacity: 1,
@@ -45,7 +45,7 @@ const slideLeft = {
 const slideRight = {
   hidden: {
     opacity: 0,
-    x: 60,
+    x: 30,
   },
   show: {
     opacity: 1,
@@ -59,7 +59,10 @@ const slideRight = {
 
 export default function Story() {
   return (
-    <section id="story" className="py-24 md:py-32 px-6 md:px-10 max-w-6xl mx-auto">
+  <section
+  id="story"
+  className="overflow-x-hidden py-24 md:py-32 px-6 md:px-10 max-w-6xl mx-auto"
+>
       <motion.div
         className="text-center mb-16 md:mb-24"
         variants={fadeUp}
@@ -71,8 +74,7 @@ export default function Story() {
         <SectionTitle>Our Love Story</SectionTitle>
       </motion.div>
       <div className="relative">
-        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--gold)]/50 to-transparent" />
-        <div className="space-y-16 md:space-y-24">
+<div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--gold)]/50 to-transparent" />  <div className="space-y-16 md:space-y-24">
           {STORY.map((s, i) => {
             const left = i % 2 === 0;
             return (
@@ -84,23 +86,25 @@ export default function Story() {
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ staggerChildren: 0.2 }}
                 >               
-                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[var(--gold)] ring-4 ring-[var(--ivory)]" />
                 <motion.div
                   variants={fadeUp}
-                  className={`pl-12 md:pl-0 ${
-                    left ? "md:pr-16 md:text-right" : "md:order-2 md:pl-16"
+                  className={`flex flex-col items-center text-center md:block ${
+                    left
+                      ? "md:pr-16 md:text-right"
+                      : "md:order-2 md:pl-16"
                   }`}
-                >                  <p className="text-xs tracking-[0.35em] uppercase text-[var(--gold-deep)] mb-3">{s.date}</p>
+                >              
+                <p className="text-xs tracking-[0.35em] uppercase text-[var(--gold-deep)] mb-3">{s.date}</p>
                   <h3 className="text-3xl md:text-4xl font-light mb-4 font-display">{s.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{s.text}</p>
                 </motion.div>
                 <motion.div
                   variants={left ? slideRight : slideLeft}
-                  className={`pl-12 md:pl-0 ${
+                  className={`flex justify-center md:block ${
                     left ? "md:order-2 md:pl-16" : "md:pr-16"
                   }`}
                 >
-                  <div className="aspect-[4/5] overflow-hidden rounded-2xl shadow-[var(--shadow-luxe)]">
+<div className="w-full max-w-sm md:max-w-none aspect-[4/5] overflow-hidden rounded-2xl shadow-[var(--shadow-luxe)]">
                     <img
                       src={s.img}
                       alt={s.title}
