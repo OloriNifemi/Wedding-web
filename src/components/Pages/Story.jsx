@@ -88,12 +88,12 @@ export default function Story() {
                 >               
                 <motion.div
                   variants={fadeUp}
-                  className={`flex flex-col items-center text-center md:block ${
+                  className={`text-center md:text-left ${
                     left
                       ? "md:pr-16 md:text-right"
                       : "md:order-2 md:pl-16"
                   }`}
-                >              
+                >                
                 <p className="text-xs tracking-[0.35em] uppercase text-[var(--gold-deep)] mb-3">{s.date}</p>
                   <h3 className="text-3xl md:text-4xl font-light mb-4 font-display">{s.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{s.text}</p>
@@ -104,7 +104,7 @@ export default function Story() {
                     left ? "md:order-2 md:pl-16" : "md:pr-16"
                   }`}
                 >
-<div className="w-full max-w-sm md:max-w-none aspect-[4/5] overflow-hidden rounded-2xl shadow-[var(--shadow-luxe)]">
+                  <div className="w-full max-w-sm md:max-w-none aspect-[4/5] overflow-hidden rounded-2xl shadow-[var(--shadow-luxe)]">
                     <img
                       src={s.img}
                       alt={s.title}
