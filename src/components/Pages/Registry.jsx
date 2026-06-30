@@ -44,12 +44,13 @@ export default function Registry() {
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {GIFTS.map((gift) => (
-            <div
+            <GiftCard
               key={gift.id}
-              className="border p-6 rounded-xl"
-            >
-              <h2>{gift.name}</h2>
-            </div>
+              gift={gift}
+              taken={!!bought[gift.id]}
+              onBuy={openJumia}
+              onMarkPurchased={setSelectedGift}
+            />
           ))}
         </motion.div>
       </div>
