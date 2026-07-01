@@ -24,29 +24,35 @@ export default function GiftCard({
   return (
     <motion.div
       variants={fadeUp}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.25 }}
-      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--gold)]/15 bg-[#fcfaf7] shadow-sm hover:shadow-[var(--shadow-luxe)]"
+      whileHover={{
+        y: -6,
+        scale: 1.015,
+      }}
+      transition={{
+        duration: 0.45,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--gold)]/15 bg-[#fcfaf7] shadow-sm transition-shadow duration-500 hover:shadow-[var(--shadow-luxe)]"
     >
       {/* Image */}
-        <div className="relative aspect-square overflow-hidden bg-white">
-            <div className="flex h-full w-full items-center justify-center">
-                <img
-                src={gift.image}
-                alt={gift.name}
-                loading="lazy"
-                className={`max-h-[85%] max-w-[85%] object-contain transition-transform duration-500 group-hover:scale-105 ${
-                    taken ? "grayscale opacity-60" : ""
-                }`}
-                />
+      <div className="relative aspect-square overflow-hidden bg-white">
+        <div className="flex h-full w-full items-center justify-center">
+          <img
+            src={gift.image}
+            alt={gift.name}
+            loading="lazy"
+            className={`max-h-[85%] max-w-[85%] object-contain transition-transform duration-700 ease-out group-hover:scale-105 ${
+              taken ? "grayscale opacity-60" : ""
+            }`}
+          />
 
-                {taken && (
-                <div className="absolute top-4 right-4 rounded-full bg-[var(--gold)] px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-white shadow">
-                    Gifted ❤️
-                </div>
-                )}
+          {taken && (
+            <div className="absolute top-4 right-4 rounded-full bg-[var(--gold)] px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-white shadow">
+              Gifted ❤️
             </div>
+          )}
         </div>
+      </div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-5">
@@ -71,20 +77,65 @@ export default function GiftCard({
 
         {/* Buttons */}
         <div className="mt-auto space-y-2 pt-4">
-          <button
-            onClick={() => onBuy(gift)}
-            className="w-full rounded-xl border border-[var(--gold)] py-3 text-[11px] uppercase tracking-[0.35em] text-[var(--gold-deep)] transition hover:bg-[var(--gold)] hover:text-white"
-          >
-            Gift This
-          </button>
 
-          <button
+            <button
+            onClick={() => onBuy(gift)}
+            className="
+                w-full
+                rounded-xl
+                bg-black
+                py-3
+                text-[11px]
+                uppercase
+                tracking-[0.35em]
+                text-white
+                transition-all
+                duration-500
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                hover:-translate-y-1
+                hover:bg-[var(--gold-deep)]
+                hover:shadow-[0_12px_30px_rgba(184,149,95,0.28)]
+                active:translate-y-0
+                active:scale-[0.98]
+            "
+            >
+            Gift This
+            </button>
+
+            <button
             onClick={() => onMarkPurchased(gift)}
             disabled={taken}
-            className="w-full rounded-xl bg-[var(--ink)] py-3 text-[11px] uppercase tracking-[0.35em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-          >
+            className="
+                w-full
+                rounded-xl
+                border
+                border-[var(--gold)]
+                bg-transparent
+                py-3
+                text-[11px]
+                uppercase
+                tracking-[0.35em]
+                text-[var(--gold-deep)]
+                transition-all
+                duration-500
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                hover:-translate-y-1
+                hover:bg-[var(--gold)]
+                hover:text-white
+                hover:shadow-[0_12px_30px_rgba(184,149,95,0.18)]
+                active:translate-y-0
+                active:scale-[0.98]
+                disabled:cursor-not-allowed
+                disabled:opacity-40
+                disabled:hover:bg-transparent
+                disabled:hover:text-[var(--gold-deep)]
+                disabled:hover:translate-y-0
+                disabled:hover:shadow-none
+            "
+            >
             {taken ? "Gift Confirmed" : "I've Purchased This"}
-          </button>
+            </button>
+
         </div>
 
       </div>
