@@ -4,27 +4,23 @@ import { GROOM, BRIDE } from "./Wedding";
 
 const LINES = [
   "Two souls, one direction.",
-  "What God has joined, let love hold.",
-  "Every heartbeat, a promise kept.",
-  "Not the end of a search, it's the beginning of forever.",
+  "What God joins, love holds.",
+  "Every heartbeat, a promise.",
+  "Not the end of searching,",
+  "but the start of forever.",
 ];
+
+const INTERVAL_MS = 3000;
 
 export default function Promise() {
   const [activeLine, setActiveLine] = useState(0);
+  const [isVisible, setIsVisible]   = useState(false);
   const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const lineRefs   = useRef([]);
+  const scrollRef  = useRef(null);
+  const rafRef     = useRef(null);
 
-  // Start / stop the ticker based on visibility
-  useEffect(() => {
-    if (!isVisible) return;
-    const id = setInterval(
-      () => setActiveLine((prev) => (prev + 1) % LINES.length),
-      3000
-    );
-    return () => clearInterval(id);
-  }, [isVisible]);
-
-  // IntersectionObserver to pause when scrolled away
+  /* ── visibility observer ── */
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
@@ -34,91 +30,127 @@ export default function Promise() {
     return () => observer.disconnect();
   }, []);
 
+  /* ── auto-advance ── */
+  useEffect(() => {
+    if (!isVisible) return;
+    const id = setInterval(
+      () => setActiveLine((p) => (p + 1) % LINES.length),
+      INTERVAL_MS
+    );
+    return () => clearInterval(id);
+  }, [isVisible]);
+
+  /* ── scroll active line to vertical center (rAF-batched) ── */
+  useEffect(() => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+
+    rafRef.current = requestAnimationFrame(() => {
+      const container = scrollRef.current;
+      const el = lineRefs.current[activeLine];
+      if (!container || !el) return;
+
+      const containerMid = container.clientHeight / 2;
+      const elTop        = el.offsetTop;
+      const elMid        = el.clientHeight / 2;
+
+      container.scrollTo({
+        top: elTop - containerMid + elMid,
+        behavior: "smooth",
+      });
+    });
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [activeLine]);
+
   return (
     <section
       ref={sectionRef}
       id="promise"
       className="relative h-screen overflow-hidden"
+      style={{ contain: "layout paint" }}
     >
       {/* Background image */}
       <img
         src={Image}
         alt={`${GROOM} & ${BRIDE}`}
         className="absolute inset-0 h-full w-full object-cover object-[center_28%] select-none pointer-events-none"
+        style={{ transform: "translateZ(0)" }}
       />
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/5" />
+      {/* Dual gradient — dark at bottom for names, subtle at top */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
 
-      {/* Bottom content */}
-      <div className="relative z-10 flex h-full items-end justify-center px-6 pb-16 md:pb-24">
-        <div className="w-full max-w-2xl text-center">
+      {/* ── Spotify lyrics stage ── */}
+      <div
+        ref={scrollRef}
+        className="absolute inset-0 overflow-hidden flex flex-col justify-center px-6 md:px-20"
+        style={{ pointerEvents: "none" }}
+      >
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-40 z-10
+                        bg-gradient-to-b from-black/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 z-10
+                        bg-gradient-to-t from-black/80 to-transparent" />
 
-          {/* Gold rule */}
-          <div className="mb-8 flex items-center justify-center gap-4">
-            <span className="h-px w-16 bg-[var(--gold)]/70" />
-            <span className="text-lg text-[var(--gold)]">✦</span>
-            <span className="h-px w-16 bg-[var(--gold)]/70" />
-          </div>
+        <div className="space-y-5 py-40">
+          {LINES.map((line, i) => {
+            const isActive = i === activeLine;
+            const isPast   = i < activeLine;
 
-          {/*
-            Fixed-height stage — lines are absolute so they never
-            push each other around or cause layout shift.
-          */}
-          <div className="relative h-20 md:h-24 mb-10">
-            {LINES.map((line, index) => (
+            return (
               <p
                 key={line}
-                className="
-                  absolute inset-0
-                  flex items-center justify-center
-                  font-display font-light
-                  text-2xl md:text-4xl
-                  text-white
-                  transition-all duration-1000 ease-in-out
-                "
+                ref={(el) => (lineRefs.current[i] = el)}
+                onClick={() => setActiveLine(i)}
+                className="font-display leading-tight cursor-pointer origin-left"
                 style={{
-                  opacity: index === activeLine ? 1 : 0,
-                  transform: index === activeLine
-                    ? "translateY(0)"
-                    : index < activeLine
-                    ? "translateY(-12px)"
-                    : "translateY(12px)",
-                  pointerEvents: index === activeLine ? "auto" : "none",
+                  pointerEvents: "auto",
+                  fontSize: "clamp(1rem, 2.2vw, 1.6rem)", // fixed base size, no reflow
+                  fontWeight: 300,
+                  color: isActive
+                    ? "#ffffff"
+                    : isPast
+                    ? "rgba(255,255,255,0.25)"
+                    : "rgba(255,255,255,0.18)",
+                  transform: isActive
+                    ? "scale(1.7) translateX(0)" // ~matches old active fontSize ratio
+                    : "scale(1) translateX(0)",
+                  letterSpacing: isActive ? "0.01em" : "0.02em",
+                  textShadow: isActive ? "0 0 24px rgba(255,255,255,0.15)" : "none",
+                  transition: "transform 700ms ease-in-out, color 700ms ease-in-out, text-shadow 700ms ease-in-out",
+                  willChange: "transform",
                 }}
               >
                 {line}
               </p>
-            ))}
-          </div>
+            );
+          })}
+        </div>
+      </div>
 
-          {/* Progress dots */}
-          <div className="mb-10 flex justify-center gap-2">
-            {LINES.map((_, i) => (
-              <button
-                key={i}
-                aria-label={`Line ${i + 1}`}
-                onClick={() => setActiveLine(i)}
-                className="transition-all duration-500"
-                style={{
-                  width: i === activeLine ? "24px" : "6px",
-                  height: "6px",
-                  borderRadius: "9999px",
-                  background: i === activeLine
-                    ? "var(--gold)"
-                    : "rgba(255,255,255,0.35)",
-                }}
-              />
-            ))}
-          </div>
+      {/* ── Bottom: progress + names ── */}
+      <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center pb-10 md:pb-14 px-6">
+        <div className="w-full max-w-xs mb-8 h-px bg-white/20 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-[var(--gold)] rounded-full transition-all ease-linear"
+            style={{
+              width: `${((activeLine + 1) / LINES.length) * 100}%`,
+              transitionDuration: `${INTERVAL_MS}ms`,
+            }}
+          />
+        </div>
 
-          {/* Couple names */}
-          <h2 className="font-display text-4xl md:text-6xl font-light text-white tracking-wide">
-            {GROOM}
-            <span className="mx-3 text-[var(--gold)]">&amp;</span>
-            {BRIDE}
-          </h2>
+        <h2 className="font-display text-3xl md:text-5xl font-light text-white tracking-wide text-center">
+          {GROOM}
+          <span className="mx-3 text-[var(--gold)]">&amp;</span>
+          {BRIDE}
+        </h2>
 
+        <div className="mt-5 flex items-center gap-4 opacity-60">
+          <span className="h-px w-12 bg-[var(--gold)]" />
+          <span className="text-sm text-[var(--gold)]">✦</span>
+          <span className="h-px w-12 bg-[var(--gold)]" />
         </div>
       </div>
     </section>
