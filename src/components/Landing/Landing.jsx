@@ -11,6 +11,8 @@ import Wishes from "../Pages/Wishes";
 import RSVP from "../Pages/RSVP";
 import Conatact from "../Pages/Contact";
 import Footer from "../Pages/Footer";
+import BackToTop from "../Pages/BackToTop";
+import CashGift from "../Pages/CashGift";
 
 
 export default function Landing() {
@@ -25,10 +27,12 @@ export default function Landing() {
       <GettingThere />
       <Gallery />
       <Registry />
+      <CashGift />
       <Wishes />
       <RSVP />
       <Conatact />
       <Footer />
+      <BackToTop />
     </main>
   );
 }
