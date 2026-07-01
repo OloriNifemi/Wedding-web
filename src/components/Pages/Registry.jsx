@@ -36,23 +36,17 @@ export default function Registry() {
           </p>
         </div>
 
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {GIFTS.map((gift) => (
-            <GiftCard
-              key={gift.id}
-              gift={gift}
-              taken={!!bought[gift.id]}
-              onBuy={openJumia}
-              onMarkPurchased={setSelectedGift}
-            />
-          ))}
-        </motion.div>
+<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  {GIFTS.map((gift) => (
+    <GiftCard
+      key={gift.id}
+      gift={gift}
+      taken={!!bought[gift.id]}
+      onBuy={openJumia}
+      onMarkPurchased={setSelectedGift}
+    />
+  ))}
+</div>
       </div>
 
       {selectedGift && <GiftModal gift={selectedGift} onClose={closeModal} />}
