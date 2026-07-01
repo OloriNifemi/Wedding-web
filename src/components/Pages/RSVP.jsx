@@ -1,106 +1,125 @@
-import { useState } from "react";
-import { Eyebrow, SectionTitle } from "../Ui/Ui";
+import { useEffect, useRef, useState } from "react";
 import Image from "../../assets/MuyiwaEtDebbyImg8.jpeg";
+import { GROOM, BRIDE } from "../Pages/Wedding";
+
+const LINES = [
+  "Two souls, one direction.",
+  "What God has joined, let love hold.",
+  "Every heartbeat, a promise kept.",
+  "Not the end of a search, it's the beginning of forever.",
+];
 
 export default function RSVP() {
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    guests: "",
-    message: "",
-  });
-  const update = (k, v) => setForm((f) => ({ ...f, [k]: v }));
-  const submit = (e) => {
-    e.preventDefault();
+  const [activeLine, setActiveLine] = useState(0);
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-    if (!form.name.trim()) return;
+  // Start / stop the ticker based on visibility
+  useEffect(() => {
+    if (!isVisible) return;
+    const id = setInterval(
+      () => setActiveLine((prev) => (prev + 1) % LINES.length),
+      3000
+    );
+    return () => clearInterval(id);
+  }, [isVisible]);
 
-    const text = `
-💍 *Wedding RSVP*
+  // IntersectionObserver to pause when scrolled away
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.4 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-👤 Name: ${form.name}
-
-👥 Guests: ${form.guests}
-
-💌 Message:
-${form.message || "No message"}
-`;
-
-    const url = `https://wa.me/2349116971778?text=${encodeURIComponent(text)}`;
-
-    window.open(url, "_blank");
-
-    setSent(true);
-  };
-  const field =
-    "w-full bg-transparent text-[var(--ink)] placeholder:text-gray-800  border-b border-[var(--gold)]/50 focus:border-[var(--gold)] py-3 outline-none";
   return (
     <section
+      ref={sectionRef}
       id="rsvp"
-      className="relative py-24 md:py-32 px-6 md:px-10 overflow-hidden bg-center lg:bg-[center_35%] bg-cover bg-no-repeat"
-      style={{
-        backgroundImage: `url(${Image})`,
-      }}
+      className="relative h-screen overflow-hidden"
     >
-      <div className="max-w-3xl mx-auto md:mt-16">
-        <div className="text-center md:-mt-20 lg:mt-0 lg:mb-12">
-          <Eyebrow>Kindly Reply</Eyebrow>
-          <SectionTitle>RSVP</SectionTitle>
-        </div>
-        {sent ? (
-          <div className="rounded-2xl border border-[var(--gold)]/40 bg-white p-12 text-center shadow-[var(--shadow-luxe)]">
-            <div className="mx-auto w-16 h-16 rounded-full border border-[var(--gold)] grid place-items-center mb-6 text-[var(--gold-deep)] text-2xl">
-              ✓
-            </div>
-            <h3 className="text-3xl font-light font-display mb-3">
-              Thank you, {form.name.split(" ")[0]}.
-            </h3>
-            <p className="text-gray-600">
-              Thank you for your RSVP. Your details have been prepared for
-              WhatsApp.
-            </p>
-          </div>
-        ) : (
-          <form
-            onSubmit={submit}
-          className="rounded-2xl border border-[var(--gold)]/40 bg-white/20 backdrop-blur-sm p-12 shadow-[var(--shadow-luxe)] space-y-6 "
-          >
-            <div className="space-y-6">
-              <input
-                className={field}
-                placeholder="Full Name,"
-                required
-                value={form.name}
-                onChange={(e) => update("name", e.target.value)}
-              />
+      {/* Background image */}
+      <img
+        src={Image}
+        alt={`${GROOM} & ${BRIDE}`}
+        className="absolute inset-0 h-full w-full object-cover object-[center_28%] select-none pointer-events-none"
+      />
 
-              <input
-                className={field}
-                type="number"
-                min={1}
-                max={10}
-                placeholder="Number of Guests"
-                value={form.guests}
-                onChange={(e) => update("guests", e.target.value)}
-              />
-            </div>
-            <textarea
-              className={field + " resize-none"}
-              placeholder="A personal message"
-              rows={3}
-              value={form.message}
-              onChange={(e) => update("message", e.target.value)}
-            />
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="px-10 py-4 text-xs tracking-[0.35em] uppercase rounded-md border border-[var(--gold)] text-[var(--ink)] hover:bg-[var(--gold)] hover:text-white transition-colors duration-300"
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/5" />
+
+      {/* Bottom content */}
+      <div className="relative z-10 flex h-full items-end justify-center px-6 pb-16 md:pb-24">
+        <div className="w-full max-w-2xl text-center">
+
+          {/* Gold rule */}
+          <div className="mb-8 flex items-center justify-center gap-4">
+            <span className="h-px w-16 bg-[var(--gold)]/70" />
+            <span className="text-lg text-[var(--gold)]">✦</span>
+            <span className="h-px w-16 bg-[var(--gold)]/70" />
+          </div>
+
+          {/*
+            Fixed-height stage — lines are absolute so they never
+            push each other around or cause layout shift.
+          */}
+          <div className="relative h-20 md:h-24 mb-10">
+            {LINES.map((line, index) => (
+              <p
+                key={line}
+                className="
+                  absolute inset-0
+                  flex items-center justify-center
+                  font-display font-light
+                  text-2xl md:text-4xl
+                  text-white
+                  transition-all duration-1000 ease-in-out
+                "
+                style={{
+                  opacity: index === activeLine ? 1 : 0,
+                  transform: index === activeLine
+                    ? "translateY(0)"
+                    : index < activeLine
+                    ? "translateY(-12px)"
+                    : "translateY(12px)",
+                  pointerEvents: index === activeLine ? "auto" : "none",
+                }}
               >
-                Confirm Attendance
-              </button>
-            </div>
-          </form>
-        )}
+                {line}
+              </p>
+            ))}
+          </div>
+
+          {/* Progress dots */}
+          <div className="mb-10 flex justify-center gap-2">
+            {LINES.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Line ${i + 1}`}
+                onClick={() => setActiveLine(i)}
+                className="transition-all duration-500"
+                style={{
+                  width: i === activeLine ? "24px" : "6px",
+                  height: "6px",
+                  borderRadius: "9999px",
+                  background: i === activeLine
+                    ? "var(--gold)"
+                    : "rgba(255,255,255,0.35)",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Couple names */}
+          <h2 className="font-display text-4xl md:text-6xl font-light text-white tracking-wide">
+            {GROOM}
+            <span className="mx-3 text-[var(--gold)]">&amp;</span>
+            {BRIDE}
+          </h2>
+
+        </div>
       </div>
     </section>
   );
