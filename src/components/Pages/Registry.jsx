@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { Eyebrow, SectionTitle } from "../Ui/Ui";
 import { GIFTS } from "../Pages/Gifts";
 import { readJSON } from "../Pages/Storage";
 import GiftCard from "../Pages/GiftCard";
 import GiftModal from "../Pages/GiftModal";
 
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-};
+// const stagger = {
+//   hidden: {},
+//   show: { transition: { staggerChildren: 0.12 } },
+// };
 
 export default function Registry() {
   const [bought, setBought] = useState(() => readJSON("purchased", {}));

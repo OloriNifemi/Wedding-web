@@ -26,43 +26,51 @@ export default function GiftCard({
       variants={fadeUp}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.25 }}
-      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--gold)]/15 bg-white shadow-sm hover:shadow-[var(--shadow-luxe)]"
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--gold)]/15 bg-[#fcfaf7] shadow-sm hover:shadow-[var(--shadow-luxe)]"
     >
       {/* Image */}
-      <div className="relative flex h-72 items-center justify-center overflow-hidden bg-[#fcfaf7]">
-        <img
-          src={gift.image}
-          alt={gift.name}
-          loading="lazy"
-          className={`max-h-full max-w-full object-contain p-8 transition-transform duration-500 group-hover:scale-105 ${
-            taken ? "grayscale opacity-60" : ""
-          }`}
-        />
+        <div className="relative aspect-square overflow-hidden bg-white">
+            <div className="flex h-full w-full items-center justify-center">
+                <img
+                src={gift.image}
+                alt={gift.name}
+                loading="lazy"
+                className={`max-h-[85%] max-w-[85%] object-contain transition-transform duration-500 group-hover:scale-105 ${
+                    taken ? "grayscale opacity-60" : ""
+                }`}
+                />
 
-        {taken && (
-          <div className="absolute top-5 right-5 rounded-full bg-[var(--gold)] px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-white shadow">
-            Gifted ❤️
-          </div>
-        )}
-      </div>
+                {taken && (
+                <div className="absolute top-4 right-4 rounded-full bg-[var(--gold)] px-4 py-1 text-[10px] uppercase tracking-[0.3em] text-white shadow">
+                    Gifted ❤️
+                </div>
+                )}
+            </div>
+        </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col p-7">
-        <h3 className="flex min-h-[72px] items-center justify-center text-center font-display text-[22px] font-light leading-snug text-[var(--ink)]">
+      <div className="flex flex-1 flex-col p-5">
+
+        {/* Product Name */}
+        <h3 className="min-h-[46px] text-center font-display text-[20px] font-light leading-snug text-[var(--ink)]">
           {gift.name}
         </h3>
 
-        <div className="mx-auto my-5 h-px w-14 bg-[var(--gold)]/30" />
+        {/* Divider */}
+        <div className="mx-auto my-2 h-px w-10 bg-[var(--gold)]/30" />
 
-        <p className="flex min-h-[84px] items-center justify-center text-center text-sm leading-7 text-gray-500">
+        {/* Description */}
+        <p className="min-h-[48px] text-center text-sm leading-6 text-gray-500">
           {gift.description}
         </p>
 
-        <p className="mt-6 text-center text-lg font-medium text-[var(--gold-deep)]">
+        {/* Price */}
+        <p className="mt-2 text-center text-[15px] font-medium text-[var(--gold-deep)]">
           {gift.price}
         </p>
 
-        <div className="mt-auto space-y-3 pt-8">
+        {/* Buttons */}
+        <div className="mt-auto space-y-2 pt-4">
           <button
             onClick={() => onBuy(gift)}
             className="w-full rounded-xl border border-[var(--gold)] py-3 text-[11px] uppercase tracking-[0.35em] text-[var(--gold-deep)] transition hover:bg-[var(--gold)] hover:text-white"
@@ -78,6 +86,7 @@ export default function GiftCard({
             {taken ? "Gift Confirmed" : "I've Purchased This"}
           </button>
         </div>
+
       </div>
     </motion.div>
   );
