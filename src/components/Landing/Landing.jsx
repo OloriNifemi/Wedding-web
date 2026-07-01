@@ -8,11 +8,11 @@ import GettingThere from "../Pages/GettingThere";
 import Gallery from "../Pages/Gallery";
 import Registry from "../Pages/Registry";
 import Wishes from "../Pages/Wishes";
-import RSVP from "../Pages/RSVP";
 import Conatact from "../Pages/Contact";
 import Footer from "../Pages/Footer";
 import BackToTop from "../Pages/BackToTop";
 import CashGift from "../Pages/CashGift";
+import Promise from "../Pages/Promise";
 
 
 export default function Landing() {
@@ -29,7 +29,7 @@ export default function Landing() {
       <Registry />
       <CashGift />
       <Wishes />
-      <RSVP />
+      <Promise />
       <Conatact />
       <Footer />
       <BackToTop />

@@ -6,7 +6,7 @@ const links = [
   { label: "Gallery", id: "gallery" },
   { label: "Cash Gift", id: "cashgift" },
   { label: "Registry", id: "registry" },
-  { label: "RSVP", id: "rsvp" },
+  { label: "Our Promise", id: "promise" },
 ];
 
 export default function Navbar() {

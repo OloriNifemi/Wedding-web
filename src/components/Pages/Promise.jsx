@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "../../assets/MuyiwaEtDebbyImg8.jpeg";
-import { GROOM, BRIDE } from "../Pages/Wedding";
+import { GROOM, BRIDE } from "./Wedding";
 
 const LINES = [
   "Two souls, one direction.",
@@ -9,7 +9,7 @@ const LINES = [
   "Not the end of a search, it's the beginning of forever.",
 ];
 
-export default function RSVP() {
+export default function Promise() {
   const [activeLine, setActiveLine] = useState(0);
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +37,7 @@ export default function RSVP() {
   return (
     <section
       ref={sectionRef}
-      id="rsvp"
+      id="promise"
       className="relative h-screen overflow-hidden"
     >
       {/* Background image */}
